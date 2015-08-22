@@ -11,19 +11,25 @@ namespace Game.Resources
     {
         private const string DIRECTORY = "Resources/Textures/";
 
-        public static Texture Passive { get; private set; }
-        public static Texture Monster { get; private set; }
-        public static Texture Ground   { get; private set; }
-        public static Texture Button   { get; private set; }
-        public static Texture Lifebar  { get; private set; }
+        public static Texture Passive     { get; private set; }
+        public static Texture Monster     { get; private set; }
+        public static Texture Ground      { get; private set; }
+        public static Texture Button      { get; private set; }
+        public static Texture Lifebar     { get; private set; }
+		public static Texture Crate16x16  { get; private set; }
+		public static Texture Crate32x32  { get; private set; }
+		public static Texture Crate64x64  { get; private set; }
 
         public static void Load()
         {
-            Passive = LoadTexture("passive.png");
-            Monster = LoadTexture("monster.png");
-            Ground   = LoadTexture("ground.png");
-            Button   = LoadTexture("button.png");
-            Lifebar  = LoadTexture("lifebar.png");
+            Passive    = LoadTexture("passive.png");
+            Monster    = LoadTexture("monster.png");
+            Ground     = LoadTexture("ground.png");
+            Button     = LoadTexture("button.png");
+            Lifebar    = LoadTexture("lifebar.png");
+			Crate16x16 = LoadTexture("crate16x16.png");
+			Crate32x32 = LoadTexture("crate32x32.png");
+			Crate64x64 = LoadTexture("crate64x64.png");
         }
 
         private static Texture LoadTexture(string fileName)
