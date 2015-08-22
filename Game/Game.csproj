@@ -68,6 +68,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Resources\Textures\ground.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Textures\monster1.png" />

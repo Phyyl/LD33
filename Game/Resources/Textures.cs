@@ -13,11 +13,13 @@ namespace Game.Resources
 
         public static Texture2D Passive1 { get; private set; }
         public static Texture2D Monster1 { get; private set; }
+        public static Texture2D Ground   { get; private set; }
 
         public static void Load()
         {
             Passive1 = LoadTexture("passive1.png");
             Monster1 = LoadTexture("monster1.png");
+            Ground =   LoadTexture("ground.png");
         }
 
         private static Texture2D LoadTexture(string fileName)
