@@ -16,6 +16,8 @@ namespace Game
         public override bool Alive { get; protected set; }
         public override float Angle { get; protected set; }
 
+        public override Vector2 Size => SpriteSheets.Monster.Size;
+
         private KeyboardState previousKeyboardState = Keyboard.GetState();
 
         public override void Update(float delta)
@@ -27,7 +29,7 @@ namespace Game
             bool right = keyboardState.IsKeyDown(Key.Right);
             bool up = keyboardState.IsKeyDown(Key.Up);
             bool down = keyboardState.IsKeyDown(Key.Down);
-            
+
             Vector2 movement = new Vector2();
 
             if (left ^ right)
@@ -52,7 +54,7 @@ namespace Game
 
         public override void Render(float delta)
         {
-            SpriteSheets.Monster1.Render(0, 0, Position, SpriteSheets.Monster1.Size / 2, Angle);
+            SpriteSheets.Monster.Render(0, 0, Position, Size / 2, Angle);
         }
     }
 }

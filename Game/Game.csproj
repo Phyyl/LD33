@@ -82,10 +82,10 @@
     <Content Include="Resources\Textures\ground.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Textures\monster1.png">
+    <Content Include="Resources\Textures\monster.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Textures\passive1.png">
+    <Content Include="Resources\Textures\passive.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

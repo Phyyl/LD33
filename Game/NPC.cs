@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenTK;
 
 namespace Game
 {
@@ -14,6 +15,8 @@ namespace Game
         public override bool Alive { get; protected set; }
         public override float Angle { get; protected set; }
 
+        public override Vector2 Size => Textures.Passive.Size;
+
         public override void Update(float delta)
         {
 
@@ -21,7 +24,7 @@ namespace Game
 
         public override void Render(float delta)
         {
-            SpriteSheets.Passive1.Render(0, 0, Position, SpriteSheets.Passive1.Size / 2, Angle);
+            SpriteSheets.Passive.Render(0, 0, Position, SpriteSheets.Passive.Size / 2, Angle);
         }
     }
 }

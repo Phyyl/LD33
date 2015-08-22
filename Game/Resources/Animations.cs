@@ -9,13 +9,13 @@ namespace Game.Resources
 {
     public static class Animations
     {
-        public static Animation Passive1 { get; private set; }
-        public static Animation Monster1 { get; private set; }
+        public static Animation Passive { get; private set; }
+        public static Animation Monster { get; private set; }
 
         public static void Load()
         {
-            Passive1 = new Animation(SpriteSheets.Monster1, 0.5f, 0, 1, 2, 1);
-            Monster1 = new Animation(SpriteSheets.Monster1, 0.5f, 0, 1, 2, 1);
+            Passive = new Animation(SpriteSheets.Monster, 0.5f, 0, 1, 2, 1);
+            Monster = new Animation(SpriteSheets.Monster, 0.5f, 0, 1, 2, 1);
         }
     }
 }

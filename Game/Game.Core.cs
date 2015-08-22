@@ -27,12 +27,18 @@ namespace Game
             Window.UpdateFrame += Window_UpdateFrame;
             Window.RenderFrame += Window_RenderFrame;
 
-            Window.Run(60);
+            Window.Run();
         }
 
         private void Window_Load(object sender, EventArgs e)
         {
             Load();
+            GL.Enable(EnableCap.DepthTest);
+            GL.Enable(EnableCap.Blend);
+            GL.Enable(EnableCap.AlphaTest);
+
+            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+            GL.AlphaFunc(AlphaFunction.Greater, 0);
         }
 
         private void Window_Resize(object sender, EventArgs e)
@@ -55,7 +61,7 @@ namespace Game
 
         private void Window_RenderFrame(object sender, FrameEventArgs e)
         {
-            GL.Clear(ClearBufferMask.ColorBufferBit);
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             Render((float)e.Time);
             Window.SwapBuffers();
         }

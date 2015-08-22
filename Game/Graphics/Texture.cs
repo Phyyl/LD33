@@ -57,7 +57,7 @@ namespace Graphics
                 Vector2 renderSize = subRegion.IsEmpty ? Size : new Vector2(subRegion.Width, subRegion.Height);
 
                 GL.Scale(scale, scale, 1);
-                GL.Translate(new Vector3(position));
+                GL.Translate(position.X, position.Y, zIndex);
                 GL.Rotate(angle, 0, 0, 1);
                 float[] texture_points = BASE_COORDS;
                 switch (textureFlip)
@@ -83,8 +83,6 @@ namespace Graphics
                 GL.Color4(color ?? Color.White);
 
                 GL.Enable(EnableCap.Texture2D);
-                GL.Enable(EnableCap.Blend);
-                GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
                 GL.EnableClientState(ArrayCap.VertexArray);
                 GL.EnableClientState(ArrayCap.TextureCoordArray);
                 {
@@ -106,8 +104,6 @@ namespace Graphics
                     GL.DrawArrays(PrimitiveType.Quads, 0, 4);
                 }
                 GL.DisableClientState(ArrayCap.TextureCoordArray);
-                GL.DisableClientState(ArrayCap.VertexArray);
-                GL.Disable(EnableCap.Blend);
                 GL.Disable(EnableCap.Texture2D);
 
             }

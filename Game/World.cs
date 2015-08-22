@@ -12,28 +12,28 @@ namespace Game
     public class World
     {
         private List<Map> maps;
-        private Monster monster;
+        public Monster Player;
 
         public World()
         {
             maps = new List<Map>();
-            monster = new Monster();
+            Player = new Monster();
 
-            Map map = new Map();
-            map.AddEntity(monster);
+            Map map = new Map(this);
+            map.AddEntity(Player);
             map.AddEntity(new NPC { Position = new Vector2(0, 0) });
         }
 
         public void Update(float delta)
         {
-            monster?.Map?.Update(delta);
+            Player?.Map?.Update(delta);
         }
 
         public void Render(float delta)
         {
-            GL.Translate(Game.Instance.WindowSize.X / 2 - monster.Position.X - SpriteSheets.Monster1.Size.X / 2,
-                         Game.Instance.WindowSize.Y / 2 - monster.Position.Y - SpriteSheets.Monster1.Size.Y / 2, 0);
-            monster?.Map?.Render(delta);
+            GL.Translate(Game.Instance.WindowSize.X / 2 - Player.Position.X - SpriteSheets.Monster.Size.X / 2,
+                         Game.Instance.WindowSize.Y / 2 - Player.Position.Y - SpriteSheets.Monster.Size.Y / 2, 0);
+            Player?.Map?.Render(delta);
         }
     }
 }
