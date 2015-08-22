@@ -50,6 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entity.cs" />
     <Compile Include="Game.Core.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Graphics\Animation.cs" />
@@ -57,21 +58,30 @@
     <Compile Include="Graphics\SubTexture.cs" />
     <Compile Include="Graphics\Texture.cs" />
     <Compile Include="Graphics\TextureFlip.cs" />
+    <Compile Include="LivingEntity.cs" />
+    <Compile Include="Map.cs" />
+    <Compile Include="Monster.cs" />
+    <Compile Include="NPC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Animations.cs" />
     <Compile Include="Resources\SpriteSheets.cs" />
     <Compile Include="Resources\Textures.cs" />
+    <Compile Include="World.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Textures\ground.png" />
-    <Content Include="Resources\Textures\monster1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Resources\Textures\ground.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Textures\passive1.png" />
+    <Content Include="Resources\Textures\monster1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Textures\passive1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Fonts\" />

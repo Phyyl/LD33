@@ -48,7 +48,7 @@ namespace Graphics
             Height = bitmap.Height;
         }
 
-        public virtual void Render(Vector2 position = default(Vector2), Vector2 origin = default(Vector2), float radians = default(float), Color? color = null, TextureFlip textureFlip = default(TextureFlip), RectangleF subRegion = default(RectangleF), float scale = 1)
+        public virtual void Render(Vector2 position = default(Vector2), Vector2 origin = default(Vector2), float angle = default(float), Color? color = null, TextureFlip textureFlip = default(TextureFlip), RectangleF subRegion = default(RectangleF), float scale = 1, float zIndex = 0)
         {
             GL.PushMatrix();
             {
@@ -58,7 +58,7 @@ namespace Graphics
 
                 GL.Scale(scale, scale, 1);
                 GL.Translate(new Vector3(position));
-                GL.Rotate(radians / Math.PI * 180, 0, 0, 1);
+                GL.Rotate(angle, 0, 0, 1);
                 float[] texture_points = BASE_COORDS;
                 switch (textureFlip)
                 {

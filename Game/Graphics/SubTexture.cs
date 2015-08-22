@@ -19,7 +19,7 @@ namespace Graphics
             SubRegion = new RectangleF(x, y, width, height);
         }
 
-        public void Render(Vector2 position = default(Vector2), Vector2 origin = default(Vector2), float radians = default(float), Color? color = null, TextureFlip textureFlip = default(TextureFlip), RectangleF subRegion = default(RectangleF), float scale = 1)
+        public void Render(Vector2 position = default(Vector2), Vector2 origin = default(Vector2), float angle = default(float), Color? color = null, TextureFlip textureFlip = default(TextureFlip), RectangleF subRegion = default(RectangleF), float scale = 1, float zIndex = 0)
         {
             RectangleF newSubRegion = SubRegion;
 
@@ -32,7 +32,7 @@ namespace Graphics
                 newSubRegion.Height = Math.Min(subRegion.Height, SubRegion.Height);
             }
 
-            Texture.Render(position, origin, radians, color, textureFlip, newSubRegion, scale);
+            Texture.Render(position, origin, angle, color, textureFlip, newSubRegion, scale);
         }
     }
 }

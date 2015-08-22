@@ -42,11 +42,11 @@ namespace Graphics
             }
         }
 
-        public void Render(Vector2 position = default(Vector2), Vector2 origin = default(Vector2), float radians = default(float), Color? color = null, TextureFlip textureFlip = default(TextureFlip), RectangleF subRegion = default(RectangleF), float scale = 1)
+        public void Render(Vector2 position = default(Vector2), Vector2 origin = default(Vector2), float angle = default(float), Color? color = null, TextureFlip textureFlip = default(TextureFlip), RectangleF subRegion = default(RectangleF), float scale = 1, float zIndex = 0)
         {
             int tileY = frames[currentFrame] / spriteSheet.TilesX;
             int tileX = frames[currentFrame] - tileY * spriteSheet.TilesX;
-            spriteSheet.Render(tileX, tileY, position, origin, radians, color.Value, textureFlip, subRegion, scale);
+            spriteSheet.Render(tileX, tileY, position, origin, angle, color.Value, textureFlip, subRegion, scale, zIndex);
         }
 
         public void Dispose()

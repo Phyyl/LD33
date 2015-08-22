@@ -12,7 +12,9 @@ namespace Game
     {
         public static Game Instance;
 
-        public GameWindow Window { get; private set; }
+        private GameWindow Window;
+
+        public Vector2 WindowSize => new Vector2(Window.ClientSize.Width / SCALE, Window.ClientSize.Height / SCALE);
 
         public void Run()
         {
