@@ -96,6 +96,8 @@
     <None Include="Resources\Textures\key.piko">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\Textures\door.png" />
+    <None Include="Resources\Textures\trapdoor.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Textures\frame.png">
