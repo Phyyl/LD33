@@ -1,13 +1,14 @@
 ﻿using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 
-namespace PhyylsGameLibrary.Graphics
+namespace Graphics
 {
-    public class Texture2D
+    public class Texture
     {
-        private static readonly float[] VERTEX_COODRS = new float[] { 0, 0, 1, 0, 1, 1, 0, 1 };
+        private static readonly float[] BASE_COORDS = new float[] { 0, 0, 1, 0, 1, 1, 0, 1 };
 
         private int textureID;
 
@@ -16,9 +17,13 @@ namespace PhyylsGameLibrary.Graphics
 
         public Vector2 Size { get { return new Vector2(Width, Height); } }
 
-        public Texture2D(string fileName) : this(new Bitmap(fileName), new Texture2DLoadingOptions()) { }
-        public Texture2D(string fileName, Texture2DLoadingOptions options) : this(new Bitmap(fileName), options) { }
-        private Texture2D(Bitmap bitmap, Texture2DLoadingOptions options)
+        public Texture(string fileName, TextureMinFilter minFilter = TextureMinFilter.Linear, TextureMagFilter magFilter = TextureMagFilter.Nearest, TextureWrapMode wrapS = TextureWrapMode.ClampToBorder, TextureWrapMode wrapT = TextureWrapMode.ClampToBorder)
+            : this(new Bitmap(fileName), minFilter, magFilter, wrapS, wrapT)
+        {
+
+        }
+
+        public Texture(Bitmap bitmap, TextureMinFilter minFilter = TextureMinFilter.Linear, TextureMagFilter magFilter = TextureMagFilter.Nearest, TextureWrapMode wrapS = TextureWrapMode.ClampToBorder, TextureWrapMode wrapT = TextureWrapMode.ClampToBorder)
         {
             int textureID;
             GL.Hint(HintTarget.PerspectiveCorrectionHint, HintMode.Nicest);
@@ -31,10 +36,10 @@ namespace PhyylsGameLibrary.Graphics
             GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, data.Width, data.Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
             bitmap.UnlockBits(data);
 
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)options.MinFilter);
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)options.MagFilter);
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)options.WrapS);
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)options.WrapT);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)minFilter);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)magFilter);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)wrapS);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)wrapT);
 
             GL.BindTexture(TextureTarget.Texture2D, 0);
 
@@ -43,19 +48,19 @@ namespace PhyylsGameLibrary.Graphics
             Height = bitmap.Height;
         }
 
-        public virtual void Render(Texture2DRenderingOptions options)
+        public virtual void Render(Vector2 position = default(Vector2), Vector2 origin = default(Vector2), float radians = default(float), Color? color = null, TextureFlip textureFlip = default(TextureFlip), RectangleF subRegion = default(RectangleF), float scale = 1)
         {
             GL.PushMatrix();
             {
                 GL.BindTexture(TextureTarget.Texture2D, textureID);
 
-                Vector2 renderSize = options.SubRegion.IsEmpty ? Size : new Vector2(options.SubRegion.Width, options.SubRegion.Height);
+                Vector2 renderSize = subRegion.IsEmpty ? Size : new Vector2(subRegion.Width, subRegion.Height);
 
-                GL.Scale(options.Scale, options.Scale, 1);
-                GL.Translate(new Vector3(options.Position));
-                GL.Rotate(options.AngleDegrees, 0, 0, 1);
-                float[] texture_points = VERTEX_COODRS;
-                switch (options.TextureFlip)
+                GL.Scale(scale, scale, 1);
+                GL.Translate(new Vector3(position));
+                GL.Rotate(radians / Math.PI * 180, 0, 0, 1);
+                float[] texture_points = BASE_COORDS;
+                switch (textureFlip)
                 {
                     case TextureFlip.Vertical:
                         GL.Translate(0, renderSize.Y / 2, 0);
@@ -74,8 +79,8 @@ namespace PhyylsGameLibrary.Graphics
                         GL.Translate(-renderSize.X / 2, -renderSize.Y / 2, 0);
                         break;
                 }
-                GL.Translate(new Vector3(-options.Origin));
-                GL.Color4(options.Color);
+                GL.Translate(new Vector3(-origin));
+                GL.Color4(color ?? Color.White);
 
                 GL.Enable(EnableCap.Texture2D);
                 GL.Enable(EnableCap.Blend);
@@ -83,8 +88,20 @@ namespace PhyylsGameLibrary.Graphics
                 GL.EnableClientState(ArrayCap.VertexArray);
                 GL.EnableClientState(ArrayCap.TextureCoordArray);
                 {
-                    GL.VertexPointer(2, VertexPointerType.Float, 0, VERTEX_COODRS);
-                    GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, options.CreateTexCoordBuffer(this));
+                    float[] textureCoords = BASE_COORDS;
+
+                    if (!subRegion.IsEmpty)
+                    {
+                        float x1 = subRegion.Left / Width;
+                        float x2 = subRegion.Right / Width;
+                        float y1 = subRegion.Top / Height;
+                        float y2 = subRegion.Bottom / Height;
+
+                        textureCoords = new float[] { x1, y1, x2, y1, x2, y2, x1, y2 };
+                    }
+
+                    GL.VertexPointer(2, VertexPointerType.Float, 0, BASE_COORDS);
+                    GL.TexCoordPointer(2, TexCoordPointerType.Float, 0, textureCoords);
                     GL.Scale(new Vector3(renderSize));
                     GL.DrawArrays(PrimitiveType.Quads, 0, 4);
                 }

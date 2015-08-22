@@ -1,10 +1,12 @@
-﻿using System;
+﻿using OpenTK;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PhyylsGameLibrary.Graphics
+namespace Graphics
 {
     public struct Animation
     {
@@ -40,11 +42,11 @@ namespace PhyylsGameLibrary.Graphics
             }
         }
 
-        public void Render(Texture2DRenderingOptions options)
+        public void Render(Vector2 position = default(Vector2), Vector2 origin = default(Vector2), float radians = default(float), Color? color = null, TextureFlip textureFlip = default(TextureFlip), RectangleF subRegion = default(RectangleF), float scale = 1)
         {
             int tileY = frames[currentFrame] / spriteSheet.TilesX;
             int tileX = frames[currentFrame] - tileY * spriteSheet.TilesX;
-            spriteSheet.Render(tileX, tileY, options);
+            spriteSheet.Render(tileX, tileY, position, origin, radians, color.Value, textureFlip, subRegion, scale);
         }
 
         public void Dispose()

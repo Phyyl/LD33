@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PhyylsGameLibrary.Graphics
+namespace Graphics
 {
     public enum TextureFlip
     {

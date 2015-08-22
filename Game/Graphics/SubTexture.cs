@@ -1,27 +1,38 @@
-﻿using System;
+﻿using OpenTK;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PhyylsGameLibrary.Graphics
+namespace Graphics
 {
     public class SubTexture
     {
-        public Texture2D Texture { get; set; }
+        public Texture Texture { get; set; }
         public RectangleF SubRegion { get; set; }
 
-        public SubTexture(Texture2D texture, float x, float y, float width, float height)
+        public SubTexture(Texture texture, float x, float y, float width, float height)
         {
             Texture = texture;
             SubRegion = new RectangleF(x, y, width, height);
         }
 
-        public void Render(Texture2DRenderingOptions options)
+        public void Render(Vector2 position = default(Vector2), Vector2 origin = default(Vector2), float radians = default(float), Color? color = null, TextureFlip textureFlip = default(TextureFlip), RectangleF subRegion = default(RectangleF), float scale = 1)
         {
-            options.SubRegion = SubRegion;
-            Texture.Render(options);
+            RectangleF newSubRegion = SubRegion;
+
+            if (!subRegion.IsEmpty)
+            {
+                newSubRegion.X += subRegion.X;
+                newSubRegion.Y += subRegion.Y;
+
+                newSubRegion.Width = Math.Min(subRegion.Width, SubRegion.Width);
+                newSubRegion.Height = Math.Min(subRegion.Height, SubRegion.Height);
+            }
+
+            Texture.Render(position, origin, radians, color, textureFlip, newSubRegion, scale);
         }
     }
 }

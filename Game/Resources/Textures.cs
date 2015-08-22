@@ -1,4 +1,4 @@
-﻿using PhyylsGameLibrary.Graphics;
+﻿using Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +11,8 @@ namespace Game.Resources
     {
         private const string DIRECTORY = "Resources/Textures/";
 
-        public static Texture2D Passive1 { get; private set; }
-        public static Texture2D Monster1 { get; private set; }
+        public static Texture Passive1 { get; private set; }
+        public static Texture Monster1 { get; private set; }
 
         public static void Load()
         {
@@ -20,9 +20,9 @@ namespace Game.Resources
             Monster1 = LoadTexture("monster1.png");
         }
 
-        private static Texture2D LoadTexture(string fileName)
+        private static Texture LoadTexture(string fileName)
         {
-            return new Texture2D(DIRECTORY + fileName);
+            return new Texture(DIRECTORY + fileName);
         }
     }
 }

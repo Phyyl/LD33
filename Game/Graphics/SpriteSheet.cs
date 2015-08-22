@@ -1,11 +1,12 @@
-﻿using System;
+﻿using OpenTK;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PhyylsGameLibrary.Graphics
+namespace Graphics
 {
     public class SpriteSheet
     {
@@ -13,9 +14,9 @@ namespace PhyylsGameLibrary.Graphics
         public int Height { get; set; }
         public int TilesX { get { return Texture.Width / Width; } }
         public int TilesY { get { return Texture.Height / Height; } }
-        public Texture2D Texture { get; set; }
+        public Texture Texture { get; set; }
 
-        public SpriteSheet(Texture2D texture, int width, int height)
+        public SpriteSheet(Texture texture, int width, int height)
         {
             Width = width;
             Height = height;
@@ -30,10 +31,20 @@ namespace PhyylsGameLibrary.Graphics
             }
         }
 
-        public void Render(int x, int y, Texture2DRenderingOptions options)
+        public void Render(int x, int y, Vector2 position = default(Vector2), Vector2 origin = default(Vector2), float radians = default(float), Color? color = null, TextureFlip textureFlip = default(TextureFlip), RectangleF subRegion = default(RectangleF), float scale = 1)
         {
-            options.SubRegion = new RectangleF(x * Width, y * Height, Width, Height);
-            Texture.Render(options);
+            RectangleF newSubRegion = new RectangleF(x * Width, y * Height, Width, Height);
+
+            if (!subRegion.IsEmpty)
+            {
+                newSubRegion.X += subRegion.X;
+                newSubRegion.Y += subRegion.Y;
+
+                newSubRegion.Width = Math.Min(subRegion.Width, Width);
+                newSubRegion.Height = Math.Min(subRegion.Height, Height);
+            }
+
+            Texture.Render(position, origin, radians, color, textureFlip, newSubRegion, scale);
         }
 
         public void Dispose()
