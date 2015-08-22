@@ -14,9 +14,12 @@ namespace Game.Resources
         public static Texture Passive { get; private set; }
         public static Texture Monster { get; private set; }
         public static Texture Ground { get; private set; }
-        public static Texture Button { get; private set; }
         public static Texture MonsterFace { get; private set; }
         public static Texture Frame { get; private set; }
+        public static Texture Button { get; private set; }
+        public static Texture Crate16x16 { get; private set; }
+        public static Texture Crate32x32 { get; private set; }
+        public static Texture Crate64x64 { get; private set; }
 
         public static void Load()
         {
@@ -26,6 +29,9 @@ namespace Game.Resources
             Button = LoadTexture("button.png");
             MonsterFace = LoadTexture("monsterface.png");
             Frame = LoadTexture("frame.png");
+            Crate16x16 = LoadTexture("crate16x16.png");
+            Crate32x32 = LoadTexture("crate32x32.png");
+            Crate64x64 = LoadTexture("crate64x64.png");
         }
 
         private static Texture LoadTexture(string fileName)
