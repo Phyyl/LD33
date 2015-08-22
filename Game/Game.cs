@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Game.Resources;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,9 @@ namespace Game
     {
         public void Load()
         {
+            Textures.Load();
+            SpriteSheets.Load();
+            Animations.Load();
 
         }
 

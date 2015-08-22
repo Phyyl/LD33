@@ -1,5 +1,4 @@
 ﻿using OpenTK;
-using PhyylsGameLibrary.Collisions;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,7 +12,7 @@ namespace PhyylsGameLibrary.Graphics
     {
         private static readonly float[] TEXTURE_COORDS = new float[] { 0, 0, 1, 0, 1, 1, 0, 1 };
         public TextureFlip TextureFlip { get; set; }
-        public Rect SubRegion { get; set; }
+        public RectangleF SubRegion { get; set; }
 
         internal float[] CreateTexCoordBuffer(Texture2D texture)
         {

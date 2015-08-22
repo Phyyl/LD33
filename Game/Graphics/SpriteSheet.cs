@@ -1,5 +1,4 @@
-﻿using PhyylsGameLibrary.Collisions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -33,7 +32,7 @@ namespace PhyylsGameLibrary.Graphics
 
         public void Render(int x, int y, Texture2DRenderingOptions options)
         {
-            options.SubRegion = new Rect(x * Width, y * Height, Width, Height);
+            options.SubRegion = new RectangleF(x * Width, y * Height, Width, Height);
             Texture.Render(options);
         }
 
