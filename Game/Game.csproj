@@ -93,6 +93,9 @@
     <None Include="Resources\Textures\table.png" />
     <None Include="Resources\Textures\companion_cube.png" />
     <None Include="Resources\Textures\computer_desk.png" />
+    <None Include="Resources\Textures\key.piko">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Textures\frame.png">
