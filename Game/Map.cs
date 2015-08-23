@@ -14,7 +14,7 @@ namespace Game
     public class Map
     {
         public List<Entity> Entities { get; private set; }
-        
+
 
         public World World { get; private set; }
 
@@ -51,7 +51,7 @@ namespace Game
             {
                 for (int y = -10; y <= 10; y++)
                 {
-                    Textures.Ground.Render(new Vector2(x * groundTextureSize.X, y * groundTextureSize.Y), zIndex: 0.5f);
+                    Textures.Ground.Render(new Vector2(x * groundTextureSize.X, y * groundTextureSize.Y), zIndex: -0.5f);
                 }
             }
 

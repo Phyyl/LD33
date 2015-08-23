@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity.cs" />
+    <Compile Include="MathUtil.cs" />
     <Compile Include="Game.Core.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Graphics\Animation.cs" />

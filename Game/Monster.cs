@@ -55,7 +55,7 @@ namespace Game
             {
                 GL.LoadIdentity();
                 GL.Scale(Game.SCALE, Game.SCALE, 1);
-                GL.Translate(Size.X, Game.Instance.WindowSize.Y - Size.Y, -0.1f);
+                GL.Translate(Size.X, Game.Instance.WindowSize.Y - Size.Y, 0.1f);
                 Textures.Frame.Render(origin: Textures.Frame.Size / 2, color: Color.DarkGreen);
                 Textures.MonsterFace.Render(origin: Textures.MonsterFace.Size / 2);
             }

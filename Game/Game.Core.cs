@@ -44,7 +44,7 @@ namespace Game
 
         private void Window_Resize(object sender, EventArgs e)
         {
-            Matrix4 projectionMatrix = Matrix4.CreateOrthographicOffCenter(0, Window.ClientSize.Width, Window.ClientSize.Height, 0, 1, -1);
+            Matrix4 projectionMatrix = Matrix4.CreateOrthographicOffCenter(0, Window.ClientSize.Width, Window.ClientSize.Height, 0, -1, 1);
 
             GL.Viewport(0, 0, Window.ClientSize.Width, Window.ClientSize.Height);
             GL.MatrixMode(MatrixMode.Projection);

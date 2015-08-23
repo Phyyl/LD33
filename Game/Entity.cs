@@ -12,6 +12,7 @@ namespace Game
     public abstract class Entity
     {
         private Map map;
+        private float angle;
 
         public Vector2 Position;
         public Map Map
@@ -24,14 +25,25 @@ namespace Game
             }
         }
 
+        public float Angle
+        {
+            get
+            {
+                return angle;
+            }
+            set
+            {
+                angle = MathUtil.Mod(value, 360);
+            }
+        }
 
-        public float Angle { get; protected set; }
 
         public abstract Vector2 Size { get; }
-
         public abstract bool Solid { get; }
 
         public virtual RectangleF CollisionBox => new RectangleF(Position.X - Size.X / 2, Position.Y - Size.Y / 2, Size.X, Size.Y);
+
+        public Vector2 Direction => new Vector2((float)Math.Cos(MathHelper.DegreesToRadians(Angle)), (float)Math.Sin(MathHelper.DegreesToRadians(Angle))).Normalized();
 
         public abstract void Update(float delta);
         public abstract void Render(float delta);
@@ -113,7 +125,7 @@ namespace Game
                     }
                 }
 
-                Angle = (float)(Math.Atan2(movement.Y, movement.X) / Math.PI * 180) + 90;
+                Angle = (float)(Math.Atan2(movement.Y, movement.X) / Math.PI * 180);
             }
         }
 
