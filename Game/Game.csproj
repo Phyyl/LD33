@@ -70,7 +70,7 @@
     <Compile Include="Resources\Animations.cs" />
     <Compile Include="Resources\SpriteSheets.cs" />
     <Compile Include="Resources\Textures.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="World.cs" />
   </ItemGroup>
@@ -92,12 +92,10 @@
     <None Include="Resources\Textures\table.png" />
     <None Include="Resources\Textures\companion_cube.png" />
     <None Include="Resources\Textures\computer_desk.png" />
-    <None Include="Resources\Textures\key.piko">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Resources\Textures\door.png" />
     <None Include="Resources\Textures\trapdoor.png" />
     <None Include="Resources\Textures\chest.png" />
+    <None Include="Resources\Textures\key.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Textures\frame.png">
