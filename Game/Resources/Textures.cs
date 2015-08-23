@@ -26,6 +26,7 @@ namespace Game.Resources
 		public static Texture Key { get; private set;}
 		public static Texture Door { get; private set;}
 		public static Texture TrapDoor { get; private set;}
+		public static Texture Chest { get; private set;}
 
         public static void Load()
         {
@@ -44,6 +45,7 @@ namespace Game.Resources
 			Key = LoadTexture("key.png");
 			Door = LoadTexture("door.png");
 			TrapDoor = LoadTexture("trapdoor.png");
+			Chest = LoadTexture("chest.png");
         }
 
         private static Texture LoadTexture(string fileName)

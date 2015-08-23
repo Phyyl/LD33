@@ -98,6 +98,7 @@
     </None>
     <None Include="Resources\Textures\door.png" />
     <None Include="Resources\Textures\trapdoor.png" />
+    <None Include="Resources\Textures\chest.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Textures\frame.png">
