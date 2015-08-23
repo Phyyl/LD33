@@ -20,7 +20,6 @@ namespace Game.Resources
         public static Texture Crate16x16 { get; private set; }
         public static Texture Crate32x32 { get; private set; }
         public static Texture Crate64x64 { get; private set; }
-        public static Texture Particle { get; private set; }
 		public static Texture Table { get; private set; }
 		public static Texture ComputerDesk { get; private set; }
 		public static Texture CompanionCube { get; private set; }
@@ -40,8 +39,7 @@ namespace Game.Resources
             Crate16x16 = LoadTexture("crate16x16.png");
             Crate32x32 = LoadTexture("crate32x32.png");
             Crate64x64 = LoadTexture("crate64x64.png");
-            Particle = LoadTexture("particle.png");
-			Table = LoadTexture("table.jpg");
+			Table = LoadTexture("table.png");
 			ComputerDesk = LoadTexture("computer_desk.png");
 			CompanionCube = LoadTexture("companion_cube.png");
 			Key = LoadTexture("key.png");

@@ -37,9 +37,9 @@ namespace Game
 
         public void Update(float delta)
         {
-            foreach (var entity in Entities)
+            for (int i = 0; i < Entities.Count; i++)
             {
-                entity.Update(delta);
+                Entities[i].Update(delta);
             }
         }
 
@@ -55,9 +55,9 @@ namespace Game
                 }
             }
 
-            foreach (var entity in Entities)
+            for (int i = 0; i < Entities.Count; i++)
             {
-                entity.Render(delta);
+                Entities[i].Render(delta);
             }
         }
     }

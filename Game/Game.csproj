@@ -66,6 +66,8 @@
     <Compile Include="Monster.cs" />
     <Compile Include="NPC.cs" />
     <Compile Include="Particles\Particle.cs" />
+    <Compile Include="Prop.cs" />
+    <Compile Include="PropAngle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Animations.cs" />
     <Compile Include="Resources\SpriteSheets.cs" />
@@ -77,25 +79,39 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="Resources\Textures\button.png">
+    <Content Include="Resources\Textures\button.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Textures\crate16x16.png">
+    </Content>
+    <Content Include="Resources\Textures\crate16x16.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Textures\crate32x32.png">
+    </Content>
+    <Content Include="Resources\Textures\crate32x32.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Textures\crate64x64.png">
+    </Content>
+    <Content Include="Resources\Textures\crate64x64.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Textures\table.png" />
-    <None Include="Resources\Textures\companion_cube.png" />
-    <None Include="Resources\Textures\computer_desk.png" />
-    <None Include="Resources\Textures\door.png" />
-    <None Include="Resources\Textures\trapdoor.png" />
-    <None Include="Resources\Textures\chest.png" />
-    <None Include="Resources\Textures\key.png" />
+    </Content>
+    <Content Include="Resources\Textures\table.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Textures\companion_cube.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Textures\computer_desk.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Textures\door.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Textures\trapdoor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Textures\chest.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Textures\key.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Textures\frame.png">
@@ -108,9 +124,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Textures\monsterface.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Textures\particle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Textures\passive.png">

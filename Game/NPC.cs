@@ -16,7 +16,7 @@ namespace Game
 
         public float FOV { get; private set; }
         
-        public override Vector2 Size => Textures.Passive.Size;
+        public override Vector2 Size => SpriteSheets.Passive.Size;
 
         public override int MaxHP => 20;
 
@@ -27,7 +27,7 @@ namespace Game
         {
             if (walkTime < 0)
             {
-                walkTime = (float)(random.NextDouble());
+                walkTime = (float)(random.NextDouble()) * 3;
                 walkAngle = (float)(random.NextDouble() * 360);
             }
 

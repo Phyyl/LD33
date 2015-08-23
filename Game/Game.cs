@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenTK.Input;
 
 namespace Game
 {
@@ -33,10 +34,16 @@ namespace Game
         public void Update(float delta)
         {
             world.Update(delta);
+
+            if (Keyboard.GetState().IsKeyDown(Key.Space))
+            {
+                world.Player.Map.AddEntity(new NPC());
+            }
         }
 
         public void Render(float delta)
         {
+            Console.WriteLine($"{(int)(1 / delta)} fps, {world.Player.Map.Entities.Count} entities");
             GL.PushMatrix();
             {
                 GL.Scale(SCALE, SCALE, 1);

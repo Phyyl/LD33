@@ -37,6 +37,7 @@ namespace Game
             GL.Enable(EnableCap.Blend);
             GL.Enable(EnableCap.AlphaTest);
 
+            GL.DepthFunc(DepthFunction.Lequal);
             GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
             GL.AlphaFunc(AlphaFunction.Greater, 0);
         }

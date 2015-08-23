@@ -1,5 +1,6 @@
 ﻿using Game.Graphics;
 using OpenTK;
+using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,7 +12,6 @@ namespace Game.Particles
 {
     public class Particle
     {
-        private Texture texture;
         private float decayTime;
         private float life;
         private Vector2 position;
@@ -20,9 +20,8 @@ namespace Game.Particles
 
         public bool Alive => life > 0;
 
-        public Particle(Texture texture, float decayTime, Vector2 position, Vector2 movement, Color color)
+        public Particle(float decayTime, Vector2 position, Vector2 movement, Color color)
         {
-            this.texture = texture;
             this.decayTime = decayTime;
             this.position = position;
             this.movement = movement;
@@ -40,12 +39,13 @@ namespace Game.Particles
             }
         }
 
-        public void Render(float delta)
+        public void Render(float delta, float zIndex = 0)
         {
             if (Alive)
             {
                 float percent = life / decayTime;
-                texture.Render(position, texture.Size / 2, color: Color.FromArgb((int)(percent * 255), color.R, color.G, color.B));
+                GL.Color4(color.R, color.G, color.B, (byte)(percent * 255));
+                GL.Vertex3(position.X, position.Y, zIndex);
             }
         }
     }

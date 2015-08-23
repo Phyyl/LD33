@@ -29,10 +29,9 @@ namespace Game
 
         public abstract Vector2 Size { get; }
 
-
         public abstract bool Solid { get; }
 
-        public RectangleF CollisionBox => new RectangleF(Position.X - Size.X / 2, Position.Y - Size.Y / 2, Size.X, Size.Y);
+        public virtual RectangleF CollisionBox => new RectangleF(Position.X - Size.X / 2, Position.Y - Size.Y / 2, Size.X, Size.Y);
 
         public abstract void Update(float delta);
         public abstract void Render(float delta);
@@ -44,20 +43,78 @@ namespace Game
 
         public void Move(Vector2 movement)
         {
+            Vector2 newMovement = movement;
+
             if (movement.Length != 0)
             {
-                Angle = (float)(Math.Atan2(movement.Y, movement.X) / Math.PI * 180) + 90;
-
                 foreach (var entity in Map.Entities)
                 {
                     if (entity.Solid)
                     {
-                        movement = MoveWithCollisions(movement, entity.CollisionBox);
+                        newMovement = MoveWithCollisions(newMovement, entity.CollisionBox);
                     }
                 }
-            }
 
-            Position += movement;
+                Position += newMovement;
+
+                float rest = movement.Length - newMovement.Length;
+
+                if (rest > 0)
+                {
+                    float xBest = -1;
+                    float yBest = -1;
+
+                    foreach (var entity in Map.Entities)
+                    {
+                        if (entity.Solid)
+                        {
+                            if (movement.X != 0)
+                            {
+                                Vector2 xMovement = MoveWithCollisions(new Vector2(rest * Math.Sign(movement.X), 0), entity.CollisionBox);
+
+                                if (xMovement.Length < xBest || xBest == -1)
+                                {
+                                    xBest = xMovement.Length;
+                                }
+                            }
+
+                            if (movement.Y != 0)
+                            {
+                                Vector2 yMovement = MoveWithCollisions(new Vector2(0, rest * Math.Sign(movement.Y)), entity.CollisionBox);
+                                if (yMovement.Length < yBest || yBest == -1)
+                                {
+                                    yBest = yMovement.Length;
+                                }
+                            }
+                        }
+                    }
+
+                    if (xBest > yBest)
+                    {
+                        if (movement.X > 0)
+                        {
+                            Position.X += xBest;
+                        }
+                        else if (movement.X < 0)
+                        {
+                            Position.X -= xBest;
+                        }
+                    }
+                    else if (yBest != -1)
+                    {
+                        if (movement.Y > 0)
+                        {
+                            Position.Y += yBest;
+                        }
+                        else if (movement.Y < 0)
+                        {
+                            Position.Y -= yBest;
+                        }
+                    }
+                }
+
+                Angle = (float)(Math.Atan2(movement.Y, movement.X) / Math.PI * 180) + 90;
+            }
         }
 
         private Vector2 MoveWithCollisions(Vector2 movement, RectangleF collisionBox)
@@ -69,7 +126,7 @@ namespace Game
 
             if (movement.X > 0) // Right
             {
-                if (Position.X > collisionBox.Right)
+                if (Position.X >= collisionBox.Right)
                 {
                     return movement;
                 }
@@ -82,11 +139,14 @@ namespace Game
                 {
                     newMovement.X = collisionBox.Left - Position.X;
                 }
-                //else, no X collision
+                else
+                {
+                    return movement;
+                }
             }
             else if (movement.X < 0) // Left
             {
-                if (Position.Y < collisionBox.Left)
+                if (Position.X <= collisionBox.Left)
                 {
                     return movement;
                 }
@@ -99,12 +159,19 @@ namespace Game
                 {
                     newMovement.X = collisionBox.Right - Position.X;
                 }
-                //else, no X collision
+                else
+                {
+                    return movement;
+                }
+            }
+            else if (Position.X <= collisionBox.Left || Position.X >= collisionBox.Right)
+            {
+                return movement;
             }
 
             if (movement.Y > 0) // Down
             {
-                if (Position.Y > collisionBox.Bottom)
+                if (Position.Y >= collisionBox.Bottom)
                 {
                     return movement;
                 }
@@ -117,11 +184,14 @@ namespace Game
                 {
                     newMovement.Y = collisionBox.Top - Position.Y;
                 }
-                //else, no Y collision
+                else
+                {
+                    return movement;
+                }
             }
             else if (movement.Y < 0) // Up
             {
-                if (Position.Y < collisionBox.Top)
+                if (Position.Y <= collisionBox.Top)
                 {
                     return movement;
                 }
@@ -132,9 +202,16 @@ namespace Game
                 }
                 else if (end.Y < collisionBox.Bottom)
                 {
-                    newMovement.Y = collisionBox.Top - Position.Y;
+                    newMovement.Y = collisionBox.Bottom - Position.Y;
                 }
-                //else, no Y collision
+                else
+                {
+                    return movement;
+                }
+            }
+            else if (Position.Y <= collisionBox.Top || Position.Y >= collisionBox.Bottom)
+            {
+                return movement;
             }
 
             return newMovement;

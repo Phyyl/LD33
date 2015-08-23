@@ -1,5 +1,6 @@
 ﻿using Game.Graphics;
 using OpenTK;
+using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -16,19 +17,16 @@ namespace Game.Particles
         public Vector2 Position;
 
         private List<Particle> particles;
-        private Texture texture;
         private Color color;
         private float radius;
         private float decayTime;
-        private int count;
         private float amount;
 
-        public ParticleEmitter(Texture texture, Vector2 position, Color color, float radius, float decayTime, float amount)
+        public ParticleEmitter(Vector2 position, Color color, float radius, float decayTime, float amount = 500)
         {
             Position = position;
 
             this.color = color;
-            this.texture = texture;
             this.radius = radius;
             this.decayTime = decayTime;
             this.amount = amount;
@@ -40,7 +38,7 @@ namespace Game.Particles
         {
             for (int i = 0, m = (int)(amount * delta); i < m; i++)
             {
-                particles.Add(new Particle(texture, decayTime, Position, new Vector2((float)random.NextDouble() - 0.5f, (float)random.NextDouble() - 0.5f).Normalized() * radius / decayTime, color));
+                particles.Add(new Particle(decayTime, Position, new Vector2((float)random.NextDouble() - 0.5f, (float)random.NextDouble() - 0.5f).Normalized() * radius / decayTime, color));
             }
 
             for (int i = particles.Count - 1; i >= 0; i--)
@@ -58,12 +56,15 @@ namespace Game.Particles
             }
         }
 
-        public void Render(float delta)
+        public void Render(float delta, float zIndex = 0)
         {
+            GL.PointSize(Game.SCALE);
+            GL.Begin(PrimitiveType.Points);
             foreach (var particle in particles)
             {
-                particle.Render(delta);
+                particle.Render(delta, zIndex);
             }
+            GL.End();
         }
     }
 }
