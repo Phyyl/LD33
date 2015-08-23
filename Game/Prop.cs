@@ -18,6 +18,16 @@ namespace Game
 
         private Texture texture;
 		private bool canSeeThrough;
+		private PropAngle propAngle;
+
+		public PropAngle PropAngle
+		{ 
+			get { return propAngle; }
+			set {
+				propAngle = value;
+				Angle = (int) value;
+			} 
+		}
 
 		public bool CanSeeThrough { get; set; } = false;
 
