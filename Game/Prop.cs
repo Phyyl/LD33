@@ -17,11 +17,16 @@ namespace Game
         public override RectangleF CollisionBox => Angle % 180 == 0 ? base.CollisionBox : new RectangleF(Position.X - Size.Y / 2, Position.Y - Size.X / 2, Size.Y, Size.X);
 
         private Texture texture;
+		private bool canSeeThrough;
 
-        public Prop(Texture texture, PropAngle angle = default(PropAngle))
+		public bool CanSeeThrough { get; set; } = false;
+
+		public Prop(Texture texture, PropAngle angle = default(PropAngle), bool canSeeThrough = false)
         {
             this.texture = texture;
-            Angle = (int)angle;
+			this.canSeeThrough = canSeeThrough;
+			Angle = (int)angle;
+
         }
 
         public override void Update(float delta)
