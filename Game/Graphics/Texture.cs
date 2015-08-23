@@ -17,13 +17,13 @@ namespace Game.Graphics
 
         public Vector2 Size { get { return new Vector2(Width, Height); } }
 
-        public Texture(string fileName, TextureMinFilter minFilter = TextureMinFilter.Linear, TextureMagFilter magFilter = TextureMagFilter.Nearest, TextureWrapMode wrapS = TextureWrapMode.ClampToBorder, TextureWrapMode wrapT = TextureWrapMode.ClampToBorder)
+        public Texture(string fileName, TextureMinFilter minFilter = TextureMinFilter.Linear, TextureMagFilter magFilter = TextureMagFilter.Nearest, TextureWrapMode wrapS = TextureWrapMode.ClampToBorderSgis, TextureWrapMode wrapT = TextureWrapMode.ClampToBorderSgis)
             : this(new Bitmap(fileName), minFilter, magFilter, wrapS, wrapT)
         {
 
         }
 
-        public Texture(Bitmap bitmap, TextureMinFilter minFilter = TextureMinFilter.Linear, TextureMagFilter magFilter = TextureMagFilter.Nearest, TextureWrapMode wrapS = TextureWrapMode.ClampToBorder, TextureWrapMode wrapT = TextureWrapMode.ClampToBorder)
+        public Texture(Bitmap bitmap, TextureMinFilter minFilter = TextureMinFilter.Linear, TextureMagFilter magFilter = TextureMagFilter.Nearest, TextureWrapMode wrapS = TextureWrapMode.ClampToBorderSgis, TextureWrapMode wrapT = TextureWrapMode.ClampToBorderSgis)
         {
             int textureID;
             GL.Hint(HintTarget.PerspectiveCorrectionHint, HintMode.Nicest);
