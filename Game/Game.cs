@@ -1,5 +1,5 @@
 ﻿using Game.Resources;
-using Graphics;
+using Game.Graphics;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using System;
@@ -12,7 +12,7 @@ namespace Game
 {
     public partial class Game
     {
-        public const float SCALE = 2;
+        public static float SCALE = 3;
 
         private World world;
 

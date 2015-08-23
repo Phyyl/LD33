@@ -1,8 +1,11 @@
-﻿using Game.Resources;
+﻿using Game.Particles;
+using Game.Resources;
 using OpenTK;
+using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,18 +15,13 @@ namespace Game
     public class Monster : LivingEntity
     {
         private const float SPEED = 50;
-
-        public override bool Alive { get; protected set; }
-        public override float Angle { get; protected set; }
-
+        
         public override Vector2 Size => SpriteSheets.Monster.Size;
-
-        private KeyboardState previousKeyboardState = Keyboard.GetState();
+        public override int MaxHP => 100;
 
         public override void Update(float delta)
         {
             KeyboardState keyboardState = Keyboard.GetState();
-
 
             bool left = keyboardState.IsKeyDown(Key.Left);
             bool right = keyboardState.IsKeyDown(Key.Right);
@@ -42,19 +40,26 @@ namespace Game
                 movement.Y += up ? -1 : 1;
             }
 
-            if (movement.Length != 0)
-            {
-                Angle = (float)(Math.Atan2(movement.Y, movement.X) / Math.PI * 180) + 90;
-
-                Position += movement.Normalized() * SPEED * delta;
-            }
-
-            previousKeyboardState = keyboardState;
+            Move(movement * delta * SPEED);
         }
 
         public override void Render(float delta)
         {
             SpriteSheets.Monster.Render(0, 0, Position, Size / 2, Angle);
+            RenderGUI();
+        }
+
+        private void RenderGUI()
+        {
+            GL.PushMatrix();
+            {
+                GL.LoadIdentity();
+                GL.Scale(Game.SCALE, Game.SCALE, 1);
+                GL.Translate(Size.X, Game.Instance.WindowSize.Y - Size.Y, 0.1f);
+                Textures.Frame.Render(origin: Textures.Frame.Size / 2, color: Color.DarkGreen);
+                Textures.MonsterFace.Render(origin: Textures.MonsterFace.Size / 2);
+            }
+            GL.PopMatrix();
         }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using Game.Resources;
-using Graphics;
 using OpenTK;
+using Game.Graphics;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,30 +13,31 @@ namespace Game
 {
     public class Map
     {
-        private List<Entity> entities;
+        public List<Entity> Entities { get; private set; }
+        
 
-        private World world;
+        public World World { get; private set; }
 
-        public Map(World world)
+        public Map(World world, RectangleF bounds)
         {
-            entities = new List<Entity>();
-            this.world = world;
+            Entities = new List<Entity>();
+            World = world;
         }
 
         public void AddEntity(Entity entity)
         {
-            entities.Add(entity);
+            Entities.Add(entity);
             entity.Map = this;
         }
 
         public void RemoveEntity(Entity entity)
         {
-            entities.Remove(entity);
+            Entities.Remove(entity);
         }
 
         public void Update(float delta)
         {
-            foreach (var entity in entities)
+            foreach (var entity in Entities)
             {
                 entity.Update(delta);
             }
@@ -43,11 +45,6 @@ namespace Game
 
         public void Render(float delta)
         {
-            foreach (var entity in entities)
-            {
-                entity.Render(delta);
-            }
-            
             Vector2 groundTextureSize = Textures.Ground.Size;
 
             for (int x = -10; x <= 10; x++)
@@ -56,6 +53,11 @@ namespace Game
                 {
                     Textures.Ground.Render(new Vector2(x * groundTextureSize.X, y * groundTextureSize.Y), zIndex: 0.5f);
                 }
+            }
+
+            foreach (var entity in Entities)
+            {
+                entity.Render(delta);
             }
         }
     }

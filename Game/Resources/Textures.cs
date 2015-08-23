@@ -1,4 +1,4 @@
-﻿using Graphics;
+﻿using Game.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +20,7 @@ namespace Game.Resources
         public static Texture Crate16x16 { get; private set; }
         public static Texture Crate32x32 { get; private set; }
         public static Texture Crate64x64 { get; private set; }
+        public static Texture Particle { get; private set; }
 
         public static void Load()
         {
@@ -32,6 +33,7 @@ namespace Game.Resources
             Crate16x16 = LoadTexture("crate16x16.png");
             Crate32x32 = LoadTexture("crate32x32.png");
             Crate64x64 = LoadTexture("crate64x64.png");
+            Particle = LoadTexture("particle.png");
         }
 
         private static Texture LoadTexture(string fileName)

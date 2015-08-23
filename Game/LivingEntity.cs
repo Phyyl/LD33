@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenTK;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,21 @@ namespace Game
 {
     public abstract class LivingEntity : Entity
     {
-        public abstract bool Alive { get; protected set; }
-        public abstract float Angle { get; protected set; }
+        private int hp;
+
+        public override bool Solid => false;
+
+        public abstract int MaxHP { get; }
+
+        public int HP
+        {
+            get { return hp; }
+            set
+            {
+                hp = MathHelper.Clamp(value, 0, MaxHP);
+            }
+        }
+
+        public bool Alive => HP > 0;
     }
 }

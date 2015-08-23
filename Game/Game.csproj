@@ -56,6 +56,7 @@
     <Compile Include="Game.Core.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Graphics\Animation.cs" />
+    <Compile Include="Particles\ParticleEmitter.cs" />
     <Compile Include="Graphics\SpriteSheet.cs" />
     <Compile Include="Graphics\SubTexture.cs" />
     <Compile Include="Graphics\Texture.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Map.cs" />
     <Compile Include="Monster.cs" />
     <Compile Include="NPC.cs" />
+    <Compile Include="Particles\Particle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Animations.cs" />
     <Compile Include="Resources\SpriteSheets.cs" />
@@ -76,17 +78,14 @@
     <None Include="Resources\Textures\button.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\Textures\lifebar.png">
+    <None Include="Resources\Textures\crate16x16.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\Textures\crate16x16.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Resources\Textures\crate32x32.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Textures\crate64x64.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +99,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Textures\monsterface.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Textures\particle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Textures\passive.png">

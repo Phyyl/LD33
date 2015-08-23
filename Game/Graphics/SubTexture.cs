@@ -6,12 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Graphics
+namespace Game.Graphics
 {
     public class SubTexture
     {
         public Texture Texture { get; set; }
         public RectangleF SubRegion { get; set; }
+
+        public Vector2 Size => new Vector2(Texture.Width, Texture.Height);
 
         public SubTexture(Texture texture, float x, float y, float width, float height)
         {

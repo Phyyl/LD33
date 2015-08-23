@@ -10,16 +10,30 @@ namespace Game
 {
     public class NPC : LivingEntity
     {
+        private const float SPEED = 20;
+
+        private static readonly Random random = new Random();
+
         public float FOV { get; private set; }
-
-        public override bool Alive { get; protected set; }
-        public override float Angle { get; protected set; }
-
+        
         public override Vector2 Size => Textures.Passive.Size;
+
+        public override int MaxHP => 20;
+
+        private float walkTime = 0;
+        private float walkAngle = 0;
 
         public override void Update(float delta)
         {
+            if (walkTime < 0)
+            {
+                walkTime = (float)(random.NextDouble());
+                walkAngle = (float)(random.NextDouble() * 360);
+            }
 
+            walkTime -= delta;
+
+            Move(new Vector2((float)MathHelper.DegreesToRadians(Math.Cos(walkAngle)), (float)MathHelper.DegreesToRadians(Math.Sin(walkAngle))) * SPEED);
         }
 
         public override void Render(float delta)
