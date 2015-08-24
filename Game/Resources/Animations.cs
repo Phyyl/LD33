@@ -9,13 +9,15 @@ namespace Game.Resources
 {
     public static class Animations
     {
-        public static Animation Passive { get; private set; }
-        public static Animation Monster { get; private set; }
+        public static AnimationDescriptor Monster { get; private set; }
+        public static AnimationDescriptor NPC { get; private set; }
+        public static AnimationDescriptor NPCAlerted { get; private set; }
 
         public static void Load()
         {
-            Passive = new Animation(SpriteSheets.Monster, 0.5f, 0, 1, 2, 1);
-            Monster = new Animation(SpriteSheets.Monster, 0.5f, 0, 1, 2, 1);
+            Monster = new AnimationDescriptor(SpriteSheets.Monster, 0.5f, 1, 2);
+            NPC = new AnimationDescriptor(SpriteSheets.NPC, 0.5f, 1, 2);
+            NPCAlerted = new AnimationDescriptor(SpriteSheets.NPC, 0.5f, 4, 5);
         }
     }
 }

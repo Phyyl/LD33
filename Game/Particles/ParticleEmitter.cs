@@ -21,8 +21,9 @@ namespace Game.Particles
         private float radius;
         private float decayTime;
         private float amount;
+        private float flowTime;
 
-        public ParticleEmitter(Vector2 position, Color color, float radius, float decayTime, float amount = 500)
+        public ParticleEmitter(Vector2 position, Color color, float radius, float decayTime, float amount = 200)
         {
             Position = position;
 
@@ -36,9 +37,17 @@ namespace Game.Particles
 
         public void Update(float delta)
         {
-            for (int i = 0, m = (int)(amount * delta); i < m; i++)
+            if (flowTime > 0)
             {
-                particles.Add(new Particle(decayTime, Position, new Vector2((float)random.NextDouble() - 0.5f, (float)random.NextDouble() - 0.5f).Normalized() * radius / decayTime, color));
+                for (int i = 0, m = (int)(amount * delta); i < m; i++)
+                {
+                    particles.Add(new Particle(decayTime, Position, new Vector2((float)random.NextDouble() - 0.5f, (float)random.NextDouble() - 0.5f).Normalized() * radius / decayTime, color, (float)(random.NextDouble() / 4 + 0.75)));
+                }
+
+                if (flowTime < 0)
+                {
+                    flowTime = 0;
+                }
             }
 
             for (int i = particles.Count - 1; i >= 0; i--)
@@ -54,6 +63,11 @@ namespace Game.Particles
                     particle.Update(delta);
                 }
             }
+        }
+
+        public void Emit(float flowTime)
+        {
+            this.flowTime = flowTime;
         }
 
         public void Render(float delta, float zIndex = 0)

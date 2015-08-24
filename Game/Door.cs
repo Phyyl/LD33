@@ -6,81 +6,56 @@ using System.Drawing;
 
 namespace Game
 {
-	public class Door : Prop
-	{
-		private Door destination;
-		private Vector2 spawnCoordinates;
-		private const float ACTION_BOX_INFLATION = 1;
+    public class Door : Prop
+    {
+        private const float DOOR_SIZE_DEFLATION = 6;
 
-        public override RectangleF CollisionBox 
+        public Door Destination { get; set; }
+
+        private float enterTimeout;
+
+        private bool canEnter => enterTimeout == 0;
+
+        public Door(Vector2 position, Direction propAngle)
+            : base(position, Textures.Door, propAngle)
         {
-            get{
-                RectangleF box = base.CollisionBox;
 
-                if ((int)PropAngle % 180 == 0)
+        }
+
+        public override void Update(float delta)
+        {
+            base.Update(delta);
+
+            if (!canEnter)
+            {
+                enterTimeout -= delta;
+
+                if (enterTimeout < 0)
                 {
-                    box.Inflate(-3, 0);
+                    enterTimeout = 0;
                 }
-                else
-                {
-                    box.Inflate(0, -3);
-                }
-                return box;
             }
         }
 
-		public Door Destination
-		{
-			get { return destination; }
-			set { destination = value; }
-		}
+        public override void OnCollision(Entity entity, Direction direction)
+        {
+            if (((int)direction + (int)PropAngle) % 180 == 0 && Destination != null && canEnter)
+            {
+                Direction exitDirection = (Direction)(MathUtil.Mod((int)direction + ((int)Destination.PropAngle - (int)PropAngle), 360));
+                Destination.Exit(entity, exitDirection);
+            }
+        }
 
-		public Vector2 SpawnCoordinate
-		{
-			get
-			{ 
-				return spawnCoordinates;
-			}
-			set { spawnCoordinates = value; }
-		}
+        private void Exit(Entity entity, Direction direction)
+        {
+            enterTimeout = 1;
 
-		public Door(Door destination = null, PropAngle angle = default(PropAngle))
-			: base(Textures.Door, angle)
-		{
-			this.destination = destination;
-		}
+            if (entity.Map != Map)
+            {
+                Map.AddEntity(entity);
+            }
 
-		public override void Update(float delta)
-		{
-			base.Update(delta);
-
-			RectangleF doorActionBox = this.CollisionBox;
-
-			RectangleF playerHitBox = Map.World.Player.CollisionBox;
-
-
-			if ((int)PropAngle % 180 == 0)
-			{
-				doorActionBox.Inflate(ACTION_BOX_INFLATION, 0);
-			}
-			else
-			{
-				doorActionBox.Inflate(0, ACTION_BOX_INFLATION);
-			}
-						  
-			if (doorActionBox.IntersectsWith(playerHitBox))
-			{
-				Destination.Map.AddEntity(Map.World.Player);
-
-				if ((int)PropAngle % 180 == 0)
-				{
-					Map.World.Player.Position = new Vector2(Destination.Position.X - Destination.Size.X / 2 - Map.World.Player.Size.X / 2 - ACTION_BOX_INFLATION, Destination.Position.Y);
-				}
-				else
-				{
-					Map.World.Player.Position = new Vector2(Destination.Position.X, Destination.Position.Y - Destination.Size.Y / 2 - Map.World.Player.Size.Y / 2 - ACTION_BOX_INFLATION);
-				}
-			}
-		}
-	}
+            entity.Position = Position + direction.GetDirectionVector() * (Size / 2 + entity.Size / 2);
+        }
+    }
 }

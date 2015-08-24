@@ -22,6 +22,8 @@ namespace Game
         {
             Entities = new List<Entity>();
             World = world;
+
+            world.Maps.Add(this);
         }
 
         public void AddEntity(Entity entity)

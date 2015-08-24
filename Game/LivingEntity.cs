@@ -12,6 +12,7 @@ namespace Game
         private int hp;
 
         public override bool Solid => false;
+        public override bool Moving => base.Moving && Alive;
 
         public abstract int MaxHP { get; }
 
@@ -25,5 +26,11 @@ namespace Game
         }
 
         public bool Alive => HP > 0;
+
+        public LivingEntity(Vector2 position)
+            : base(position)
+        {
+            HP = MaxHP;
+        }
     }
 }

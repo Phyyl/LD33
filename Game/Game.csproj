@@ -53,10 +53,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity.cs" />
+    <Compile Include="Graphics\Animation.cs" />
     <Compile Include="MathUtil.cs" />
     <Compile Include="Game.Core.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="Graphics\Animation.cs" />
+    <Compile Include="Graphics\AnimationDescriptor.cs" />
     <Compile Include="Particles\ParticleEmitter.cs" />
     <Compile Include="Graphics\SpriteSheet.cs" />
     <Compile Include="Graphics\SubTexture.cs" />
@@ -68,7 +69,7 @@
     <Compile Include="NPC.cs" />
     <Compile Include="Particles\Particle.cs" />
     <Compile Include="Prop.cs" />
-    <Compile Include="PropAngle.cs" />
+    <Compile Include="Direction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Animations.cs" />
     <Compile Include="Resources\SpriteSheets.cs" />
@@ -77,8 +78,18 @@
     </Compile>
     <Compile Include="World.cs" />
     <Compile Include="Door.cs" />
+    <Compile Include="World.Maps.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Textures\deadmonster.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Textures\deadnpc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Textures\wallcorner.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="App.config" />
     <None Include="packages.config" />
     <Content Include="Resources\Textures\button.png">
@@ -114,9 +125,9 @@
     <Content Include="Resources\Textures\key.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\Textures\wall.png">
+    <Content Include="Resources\Textures\wall.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Textures\frame.png">
@@ -131,7 +142,7 @@
     <Content Include="Resources\Textures\monsterface.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Textures\passive.png">
+    <Content Include="Resources\Textures\npc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

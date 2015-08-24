@@ -37,16 +37,25 @@ namespace Game
             }
         }
 
+        private bool moving;
+        public virtual bool Moving { get { return moving; } }
 
         public abstract Vector2 Size { get; }
         public abstract bool Solid { get; }
 
         public virtual RectangleF CollisionBox => new RectangleF(Position.X - Size.X / 2, Position.Y - Size.Y / 2, Size.X, Size.Y);
 
-        public Vector2 Direction => new Vector2((float)Math.Cos(MathHelper.DegreesToRadians(Angle)), (float)Math.Sin(MathHelper.DegreesToRadians(Angle))).Normalized();
+        public Vector2 DirectionVector => new Vector2((float)Math.Cos(MathHelper.DegreesToRadians(Angle)), (float)Math.Sin(MathHelper.DegreesToRadians(Angle))).Normalized();
 
         public abstract void Update(float delta);
         public abstract void Render(float delta);
+
+        public Entity(Vector2 position)
+        {
+            Position = position;
+        }
+
+        public virtual void OnCollision(Entity entity, Direction direction) { }
 
         protected void RenderTexture(Texture texture, Color? color = null)
         {
@@ -55,7 +64,11 @@ namespace Game
 
         public void Move(Vector2 movement)
         {
+            Vector2 previousPosition = Position;
+
             Vector2 newMovement = movement;
+            Entity collisionEntity = null;
+            Direction direction = default(Direction);
 
             if (movement.Length != 0)
             {
@@ -63,11 +76,19 @@ namespace Game
                 {
                     if (entity.Solid)
                     {
-                        newMovement = MoveWithCollisions(newMovement, entity.CollisionBox);
+                        Vector2 newNewMovement = MoveWithCollisions(newMovement, entity.CollisionBox, ref direction);
+                        if (newMovement != newNewMovement)
+                        {
+                            collisionEntity = entity;
+                        }
+                        newMovement = newNewMovement;
                     }
                 }
 
                 Position += newMovement;
+
+                collisionEntity?.OnCollision(this, direction);
+
 
                 float rest = movement.Length - newMovement.Length;
 
@@ -75,6 +96,7 @@ namespace Game
                 {
                     float xBest = -1;
                     float yBest = -1;
+                    Entity best = null;
 
                     foreach (var entity in Map.Entities)
                     {
@@ -82,7 +104,7 @@ namespace Game
                         {
                             if (movement.X != 0)
                             {
-                                Vector2 xMovement = MoveWithCollisions(new Vector2(rest * Math.Sign(movement.X), 0), entity.CollisionBox);
+                                Vector2 xMovement = MoveWithCollisions(new Vector2(rest * Math.Sign(movement.X), 0), entity.CollisionBox, ref direction);
 
                                 if (xMovement.Length < xBest || xBest == -1)
                                 {
@@ -92,7 +114,7 @@ namespace Game
 
                             if (movement.Y != 0)
                             {
-                                Vector2 yMovement = MoveWithCollisions(new Vector2(0, rest * Math.Sign(movement.Y)), entity.CollisionBox);
+                                Vector2 yMovement = MoveWithCollisions(new Vector2(0, rest * Math.Sign(movement.Y)), entity.CollisionBox, ref direction);
                                 if (yMovement.Length < yBest || yBest == -1)
                                 {
                                     yBest = yMovement.Length;
@@ -123,13 +145,17 @@ namespace Game
                             Position.Y -= yBest;
                         }
                     }
+
+                    best?.OnCollision(this, direction);
                 }
 
                 Angle = (float)(Math.Atan2(movement.Y, movement.X) / Math.PI * 180);
             }
+
+            moving = previousPosition != Position;
         }
 
-        private Vector2 MoveWithCollisions(Vector2 movement, RectangleF collisionBox)
+        private Vector2 MoveWithCollisions(Vector2 movement, RectangleF collisionBox, ref Direction direction)
         {
             collisionBox.Inflate(Size.X / 2, Size.Y / 2);
 
@@ -150,6 +176,7 @@ namespace Game
                 else if (end.X > collisionBox.Left)
                 {
                     newMovement.X = collisionBox.Left - Position.X;
+                    direction = Direction.Left;
                 }
                 else
                 {
@@ -170,6 +197,7 @@ namespace Game
                 else if (end.X < collisionBox.Right)
                 {
                     newMovement.X = collisionBox.Right - Position.X;
+                    direction = Direction.Right;
                 }
                 else
                 {
@@ -195,6 +223,7 @@ namespace Game
                 else if (end.Y > collisionBox.Top)
                 {
                     newMovement.Y = collisionBox.Top - Position.Y;
+                    direction = Direction.Up;
                 }
                 else
                 {
@@ -215,6 +244,7 @@ namespace Game
                 else if (end.Y < collisionBox.Bottom)
                 {
                     newMovement.Y = collisionBox.Bottom - Position.Y;
+                    direction = Direction.Down;
                 }
                 else
                 {

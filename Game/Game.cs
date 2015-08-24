@@ -13,7 +13,7 @@ namespace Game
 {
     public partial class Game
     {
-        public static float SCALE = 3;
+        public static float SCALE = 2;
 
         private World world;
 
@@ -37,13 +37,13 @@ namespace Game
 
             if (Keyboard.GetState().IsKeyDown(Key.Space))
             {
-                world.Player.Map.AddEntity(new NPC());
+                world.Monster.Map.AddEntity(new NPC(new Vector2(0,0)));
             }
         }
 
         public void Render(float delta)
         {
-            Console.WriteLine($"{(int)(1 / delta)} fps, {world.Player.Map.Entities.Count} entities");
+            //Console.WriteLine($"{(int)(1 / delta)} fps, {world.Player.Map.Entities.Count} entities");
             GL.PushMatrix();
             {
                 GL.Scale(SCALE, SCALE, 1);

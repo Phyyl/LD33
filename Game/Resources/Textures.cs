@@ -11,7 +11,7 @@ namespace Game.Resources
     {
         private const string DIRECTORY = "Resources/Textures/";
 
-        public static Texture Passive { get; private set; }
+        public static Texture NPC { get; private set; }
         public static Texture Monster { get; private set; }
         public static Texture Ground { get; private set; }
         public static Texture MonsterFace { get; private set; }
@@ -20,18 +20,21 @@ namespace Game.Resources
         public static Texture Crate16x16 { get; private set; }
         public static Texture Crate32x32 { get; private set; }
         public static Texture Crate64x64 { get; private set; }
-		public static Texture Table { get; private set; }
-		public static Texture ComputerDesk { get; private set; }
-		public static Texture CompanionCube { get; private set; }
-		public static Texture Key { get; private set;}
-		public static Texture Door { get; private set;}
-		public static Texture TrapDoor { get; private set;}
-		public static Texture Chest { get; private set;}
-        public static Texture Wall { get; private set;}
+        public static Texture Table { get; private set; }
+        public static Texture ComputerDesk { get; private set; }
+        public static Texture CompanionCube { get; private set; }
+        public static Texture Key { get; private set; }
+        public static Texture Door { get; private set; }
+        public static Texture TrapDoor { get; private set; }
+        public static Texture Chest { get; private set; }
+        public static Texture Wall { get; private set; }
+        public static Texture WallCorner { get; private set; }
+        public static Texture DeadMonster { get; private set; }
+        public static Texture DeadNPC       { get; private set; }
 
         public static void Load()
         {
-            Passive = LoadTexture("passive.png");
+            NPC = LoadTexture("npc.png");
             Monster = LoadTexture("monster.png");
             Ground = LoadTexture("ground.png");
             Button = LoadTexture("button.png");
@@ -40,14 +43,17 @@ namespace Game.Resources
             Crate16x16 = LoadTexture("crate16x16.png");
             Crate32x32 = LoadTexture("crate32x32.png");
             Crate64x64 = LoadTexture("crate64x64.png");
-			Table = LoadTexture("table.png");
-			ComputerDesk = LoadTexture("computer_desk.png");
-			CompanionCube = LoadTexture("companion_cube.png");
-			Key = LoadTexture("key.png");
-			Door = LoadTexture("door.png");
-			TrapDoor = LoadTexture("trapdoor.png");
-			Chest = LoadTexture("chest.png");
+            Table = LoadTexture("table.png");
+            ComputerDesk = LoadTexture("computer_desk.png");
+            CompanionCube = LoadTexture("companion_cube.png");
+            Key = LoadTexture("key.png");
+            Door = LoadTexture("door.png");
+            TrapDoor = LoadTexture("trapdoor.png");
+            Chest = LoadTexture("chest.png");
             Wall = LoadTexture("wall.png");
+            WallCorner = LoadTexture("wallcorner.png");
+            DeadMonster  = LoadTexture("deadmonster.png");
+            DeadNPC = LoadTexture("deadnpc.png");
         }
 
         private static Texture LoadTexture(string fileName)

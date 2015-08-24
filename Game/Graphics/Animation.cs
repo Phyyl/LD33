@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Game.Graphics
 {
-    public struct Animation
+    public class Animation
     {
         private SpriteSheet spriteSheet;
         private int[] frames;
@@ -16,13 +16,11 @@ namespace Game.Graphics
         private int currentFrame;
         private float currentTime;
 
-        public Animation(SpriteSheet spriteSheet, float interval, params int[] frames)
+        public Animation(SpriteSheet spriteSheet, float interval, int[] frames)
         {
             this.spriteSheet = spriteSheet;
             this.frames = frames;
             this.interval = interval;
-            currentFrame = 0;
-            currentTime = 0;
         }
 
         public void Reset()
@@ -46,7 +44,7 @@ namespace Game.Graphics
         {
             int tileY = frames[currentFrame] / spriteSheet.TilesX;
             int tileX = frames[currentFrame] - tileY * spriteSheet.TilesX;
-            spriteSheet.Render(tileX, tileY, position, origin, angle, color.Value, textureFlip, subRegion, scale, zIndex);
+            spriteSheet.Render(tileX, tileY, position, origin, angle, color ?? Color.White, textureFlip, subRegion, scale, zIndex);
         }
 
         public void Dispose()

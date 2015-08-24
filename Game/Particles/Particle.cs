@@ -17,15 +17,17 @@ namespace Game.Particles
         private Vector2 position;
         private Vector2 movement;
         private Color color;
+        private float speed;
 
         public bool Alive => life > 0;
 
-        public Particle(float decayTime, Vector2 position, Vector2 movement, Color color)
+        public Particle(float decayTime, Vector2 position, Vector2 movement, Color color, float speed = 1)
         {
             this.decayTime = decayTime;
             this.position = position;
             this.movement = movement;
             this.color = color;
+            this.speed = speed;
 
             life = decayTime;
         }
@@ -34,7 +36,7 @@ namespace Game.Particles
         {
             if (Alive)
             {
-                position += movement * delta;
+                position += movement * delta * speed;
                 life -= delta;
             }
         }

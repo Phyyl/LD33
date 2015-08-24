@@ -14,28 +14,32 @@ namespace Game
         public override Vector2 Size => texture.Size;
         public override bool Solid => true;
 
-        public override RectangleF CollisionBox => Angle % 180 == 0 ? base.CollisionBox : new RectangleF(Position.X - Size.Y / 2, Position.Y - Size.X / 2, Size.Y, Size.X);
+        public override RectangleF CollisionBox => Horizontal ? base.CollisionBox : new RectangleF(Position.X - Size.Y / 2, Position.Y - Size.X / 2, Size.Y, Size.X);
 
         private Texture texture;
-		private bool canSeeThrough;
-		private PropAngle propAngle;
 
-		public PropAngle PropAngle
-		{ 
-			get { return propAngle; }
-			set {
-				propAngle = value;
-				Angle = (int) value;
-			} 
-		}
+        protected bool Horizontal => (int)PropAngle % 180 == 0;
 
-		public bool CanSeeThrough { get; set; } = false;
+        private Direction propAngle;
+        public Direction PropAngle
+        {
+            get { return propAngle; }
+            set
+            {
+                propAngle = value;
+                Angle = (int)value;
+            }
+        }
 
-		public Prop(Texture texture, PropAngle angle = default(PropAngle), bool canSeeThrough = false)
+        public bool CanSeeThrough { get; set; }
+
+        public Prop(Vector2 position, Texture texture, Direction angle, bool canSeeThrough = false)
+            : base(position)
         {
             this.texture = texture;
-			this.canSeeThrough = canSeeThrough;
-			Angle = (int)angle;
+
+            CanSeeThrough = canSeeThrough;
+            PropAngle = angle;
 
         }
 
